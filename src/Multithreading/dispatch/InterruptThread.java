@@ -1,0 +1,49 @@
+package Multithreading.dispatch;
+
+/**
+ * @program: java基础知识
+ * @description:
+ *     result =
+ *       ning...
+ * Thread is running... //很多
+ * Thread is running...
+ * Thread is running...
+ * Thread is running...
+ * Thread is running...
+ * Thread is running...
+ * Thread is running...
+ * Thread is running...
+ * Thread is running...
+ * Thread is running...
+ * Thread is running...
+ * Thread is running...
+ * Thread is running...
+ * Thread is running...
+ * Stopping application...
+ * @author: jiangzq
+ * @create: 2019-11-24 17:02
+ **/
+public class InterruptThread extends Thread{
+    public static void main(String[] args) {
+        InterruptThread interruptThread = new InterruptThread();
+        System.out.println("thread is starting...");
+        interruptThread.start();
+        try {
+            Thread.sleep(3000);
+            interruptThread.blockFalg = true;
+            interruptThread.interrupt();//中断线程
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Stopping application...");
+    }
+
+    private boolean blockFalg = false;
+
+    public void run() {
+        while (!blockFalg) {
+            System.out.println("Thread is running...");
+        }
+    }
+}
